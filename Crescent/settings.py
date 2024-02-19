@@ -74,16 +74,23 @@ WSGI_APPLICATION = 'Crescent.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'djongo',
-       'CLIENT': {
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'djongo',
+#        'CLIENT': {
            
-           'host': "mongodb+srv://nagi:nagi@cluster0.ohv5gsc.mongodb.net/nagidb",
-           'name':'Astrology',
-           'authMechanism': "SCRAM-SHA-1",
-        }
-   }
+#            'host': "mongodb+srv://nagi:nagi@cluster0.ohv5gsc.mongodb.net/nagidb",
+#            'name':'Astrology',
+#            'authMechanism': "SCRAM-SHA-1",
+#         }
+#    }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 

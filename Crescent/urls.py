@@ -14,29 +14,57 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from base import views
+from base.views.views import *
+from base.views.auth import *
 from django.urls import path
 from Crescent import settings
 from django.conf.urls.static import static
+from django.urls import path, include
 
 
-urlpatterns = [
+urlpatterns = []
+
+blog_url = [
     
-    path('admin/', admin.site.urls),
-    path('', views.home),
-    path('admin',views.admin),
+    path('list_edit_blog',list_edit_blog),
+    path('view_blog/<str:pk>',view_blog),
+    path('edit_blog/<str:pk>',edit_blog),
+    path('blog_edit',blog_edit),
+    path('save_blog',save_blog),
+    path('delete_blog',delete_blog),
+    path('edit_blog/save_edit_blog/<int:pk>',save_edit_blog),
+    path('', home),
+    path('home', home, name="home"),
     
-    path('list_blog',views.list_blog),
-    path('list_edit_blog',views.list_edit_blog),
-    path('view_blog/<str:pk>',views.view_blog),
-    path('edit_blog/<str:pk>',views.edit_blog),
-    path('blog_edit',views.blog_edit),
-    path('save_blog',views.save_blog),
-    path('delete_blog',views.delete_blog),
-    path('edit_blog/save_edit_blog/<int:pk>',views.save_edit_blog),
-
+    path('new_page',new_page),
+    path('list_blog',list_blog),
+    path('blogs',blogs),
+    path('list_edit_blog',list_edit_blog),
+    path('view_blog/<str:pk>',view_blog),
+    path('edit_blog/<str:pk>',edit_blog),
+    path('blog_edit',blog_edit),
+    path('save_blog',save_blog),
+    path('delete_blog',delete_blog),
+    path('edit_blog/save_edit_blog/<int:pk>',save_edit_blog),
+    
+    
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
 
+auth = [
+    path('accounts/', include('django.contrib.auth.urls')),  # Use built-in authentication views
+    path('enter_otp', enter_otp, name='enter_otp'),
+    path('signup/<str:mail>', signup, name='signup'),
+    path('login', user_login, name='login'),
+    
+    path('save_blog1/<str:post_id>', save_blog1, name='save_blog1'),
+    
+    path('comments/<str:id>', comments, name='comments'),
+    path('create_comment/<str:path>' , create_comment , name='create_comment'),
+    
+]
+
+urlpatterns.extend(blog_url)
+urlpatterns.extend(auth)
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
